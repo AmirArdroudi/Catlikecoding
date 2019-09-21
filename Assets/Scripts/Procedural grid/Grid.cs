@@ -11,18 +11,17 @@ public class Grid : MonoBehaviour
     private Mesh mesh;
     private void Awake()
     {
-        Generate();
+        StartCoroutine(Generate());
     }
-    void Start()
+    private IEnumerator Generate()
     {
+        WaitForSeconds wait = new WaitForSeconds(0.01f);
 
-    }
-    private IEnumerable Generate()
-    {
-        WaitForSeconds wait = new WaitForSeconds(0.05f);
-        GetComponent<MeshFilter>().mesh = mesh;
+        GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Procedural Grid";
+
         vertices = new Vector3[(xSize + 1) * (ySize + 1)];
+
         // give the dots a position
         for (int i = 0, x = 0; x <= xSize; x++)
         {
@@ -33,13 +32,16 @@ public class Grid : MonoBehaviour
             }
         }
         mesh.vertices = vertices;
-    }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
+        int[] triangles = new int[6];
+        triangles[0] = 0;
+        triangles[3] = triangles[2] = 1;
+        triangles[4] = triangles[1] = ySize + 1;
+        triangles[5] = ySize + 2;
 
+
+        mesh.triangles = triangles;
+    }
 
 
     // ------------------ Editor helper functions ------------------
