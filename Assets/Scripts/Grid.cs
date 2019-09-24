@@ -48,8 +48,8 @@ public class Grid : MonoBehaviour
             for (int x = 0; x < xSize; x++, ti += 6, vi++)
             {
                 triangles[ti] = vi;
-                triangles[ti + 2] = triangles[ti + 3] = vi + 1;
-                triangles[ti + 1] = triangles[ti + 4] = vi + xSize + 1;
+                triangles[ti + 2]  = triangles[ti + 3] = vi + 1;
+                triangles[ti + 1]  = triangles[ti + 4] = vi + xSize + 1;
                 triangles[ti + 5] = vi + xSize + 2;
 
                 mesh.triangles = triangles;
