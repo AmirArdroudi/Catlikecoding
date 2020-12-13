@@ -71,11 +71,6 @@ public class Grid : MonoBehaviour
         {
             Gizmos.DrawSphere(transform.TransformPoint(vertices[i]), 0.07f);
         }
-
-
     }
-    private void OnDrawGizmosSelected()
-    {
 
-    }
 }

@@ -1,17 +1,20 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 
 public class Graph : MonoBehaviour
 {
-    public Transform pointPrefab;
-    [Range(10, 100)] public int resulation;
+    public Transform pointPrefab = default;
 
+    [Range(10, 100)] public int resulation;
+    [SerializeField] private FunctionLibrary._functionName functions = default;
     private Transform[] points;
 
     private void Awake()
     {
         InitGraph();
     }
+
     private void Update()
     {
         AnimatingGraph();
@@ -19,11 +22,16 @@ public class Graph : MonoBehaviour
 
     private void AnimatingGraph()
     {
+        FunctionLibrary.Function f = FunctionLibrary.GetFunction(functions);
+        
+        float time = Time.time;
         for (int i = 0; i < points.Length; i++)
         {
             Transform point = points[i];
             Vector3 position = point.localPosition;
-            position.y = SinFunc(position.x);
+            
+            
+            
             point.localPosition = position;
         }
     }
@@ -42,16 +50,10 @@ public class Graph : MonoBehaviour
             // position.y = Func(position.x);
             point.position = position;
             point.localScale = scale;
-            point.SetParent(this.transform, false);
+            point.SetParent(transform, false);
 
             points[i] = point;
         }
     }
-
-    private float SinFunc(float x)
-    {
-        return Mathf.Cos(Mathf.PI * (x + Time.time));
-    }
-
 
 }
